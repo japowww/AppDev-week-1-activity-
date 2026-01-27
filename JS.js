@@ -26,7 +26,7 @@ class TodoList {
 
             if (this.editingIndex === -1) {
                 this.addTask(taskText);
-                console.log("TASK ADDED:", taskText);
+                console.log(+"user: "+ user +  " TASK ADDED:", taskText);
             } else {
                 this.updateTask(taskText);
                 console.log("TASK UPDATED:", taskText);
@@ -37,41 +37,51 @@ class TodoList {
         }
 
     addTask(taskText) {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item';
-        listItem.innerHTML = `
-            <span class="task-text" style ="width: 50%; font-size: large;">${taskText}</span>
-            <span class="timestamp" style="display: block; margin-top: 0.5rem; color: white; font-size: smaller  ; font-style: italic; font-weight: 300;">Date Added: ${new Date().toLocaleDateString()} <br> Time: ${new Date().toLocaleTimeString()}</span>
-            <div style="margin-top: 0.5rem; " >
-                <button class="btn btn-success btn-sm doneButton">Done</button>
-                <button class="btn btn-warning btn-sm editButton">Edit</button>
-                <button class="btn btn-danger btn-sm removeButton">Remove</button>
-            </div>
-        `;
-        this.todoList.appendChild(listItem);
-    }
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
 
-    handleButtonClick(e) {
-        const action = e.target.classList.contains('doneButton') ? 'done' :
-                       e.target.classList.contains('editButton') ? 'edit' :
-                       e.target.classList.contains('removeButton') ? 'remove' : null;
-        if (!action) return;
+            listItem.innerHTML = `
+                <span class="task-text" style="width:50%;font-size:large;">${taskText}</span>
+                <span class="timestamp" style="display:block;margin-top:.5rem;color:white;font-size:smaller;font-style:italic;">
+                    Date Added: ${new Date().toLocaleDateString()} <br>
+                    Time: ${new Date().toLocaleTimeString()}
+                </span>
+                <div style="margin-top:.5rem;">
+                    <button class="btn btn-success btn-sm doneButton">Done</button>
+                    <button class="btn btn-warning btn-sm editButton">Edit</button>
+                    <button class="btn btn-danger btn-sm removeButton">Remove</button>
+                </div>
+            `;
 
-        const taskItem = e.target.closest('li');
-        const taskText = taskItem.querySelector('.task-text');
-
-        if (action === 'done') {
-            taskItem.classList.toggle('complete');
-            taskText.classList.toggle("completed:");
-
-            taskItem.querySelector('.editButton').disabled = taskItem.classList.contains('complete');
-            
-            console.log('Task done:', taskText.textContent);
-            return;
+            this.todoList.appendChild(listItem);
         }
+
+     handleButtonClick(e) {
+            const taskItem = e.target.closest('li');
+            if (!taskItem) return;
+
+            const taskTextEl = taskItem.querySelector('.task-text');
+            const taskText = taskTextEl.textContent;
+
             
-            
-          
+            if (e.target.classList.contains('doneButton')) {
+                console.log("User: "+ user +" TASK DONE:", taskText);
+
+                taskTextEl.classList.add('done');
+
+                
+                taskItem.querySelectorAll('button').forEach(btn => btn.remove());
+                return;
+            }
+
+             
+            if (e.target.classList.contains('editButton')) {
+                this.editTask(taskItem);
+                console.log("User: "+ user +" TASK EDIT:", taskText);
+                return;
+            }
+
+
          if (action === 'edit') {
 
 
