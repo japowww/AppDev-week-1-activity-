@@ -1,4 +1,13 @@
 
+let user = prompt("Enter Name:") || "*****";
+document.getElementById("demo").innerText = user;
+console.log("User name:", user);
+
+
+
+
+
+
 class TodoList {
     constructor() {
         this.editingIndex = -1;
