@@ -10,24 +10,31 @@ console.log("User name:", user);
 
 
 class TodoList {
-    constructor() {
-        this.editingIndex = -1;
-        this.addButton = document.getElementById('addButton');
-        this.todoInput = document.getElementById('todoInput');
-        this.todoList = document.getElementById('todoList');
+        constructor() {
+            this.editingIndex = -1;
+            this.addButton = document.getElementById('addButton');
+            this.todoInput = document.getElementById('todoInput');
+            this.todoList = document.getElementById('todoList');
 
-        this.addButton.addEventListener('click', () => this.addOrUpdateTask());
-        this.todoList.addEventListener('click', (e) => this.handleButtonClick(e));  
-    }
+            this.addButton.addEventListener('click', () => this.addOrUpdateTask());
+            this.todoList.addEventListener('click', (e) => this.handleButtonClick(e));
+        }
 
-    addOrUpdateTask() {
-        const taskText = this.todoInput.value.trim();
-        if (taskText) {
-            this.editingIndex === -1 ? this.addTask(taskText) : this.updateTask(taskText);
+        addOrUpdateTask() {
+            const taskText = this.todoInput.value.trim();
+            if (!taskText) return;
+
+            if (this.editingIndex === -1) {
+                this.addTask(taskText);
+                console.log("TASK ADDED:", taskText);
+            } else {
+                this.updateTask(taskText);
+                console.log("TASK UPDATED:", taskText);
+            }
+
             this.todoInput.value = '';
             this.resetEditing();
         }
-    }
 
     addTask(taskText) {
         const listItem = document.createElement('li');
@@ -66,11 +73,11 @@ class TodoList {
             
           
          if (action === 'edit') {
-            
+
 
 
          }this.editTask(taskItem);
-        else if (action === 'remove') taskItem.remove();
+         if (action === 'remove') taskItem.remove();
     }
 
     updateTask(taskText) {
