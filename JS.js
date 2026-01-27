@@ -1,6 +1,7 @@
 
 let user = prompt("Enter Name:") || "*****";
-document.getElementById("demo").innerText = user;
+const demo = document.getElementById("demo").innerText = user;
+if (demo) demo.innerText = user;
 console.log("User name:", user);
 
 
@@ -50,9 +51,25 @@ class TodoList {
         if (!action) return;
 
         const taskItem = e.target.closest('li');
+        const taskText = taskItem.querySelector('.task-text');
 
-        if (action === 'done') taskItem.querySelector('.task-text').classList.toggle('completed');
-        else if (action === 'edit') this.editTask(taskItem);
+        if (action === 'done') {
+            taskItem.classList.toggle('complete');
+            taskText.classList.toggle("completed:");
+
+            taskItem.querySelector('.editButton').disabled = taskItem.classList.contains('complete');
+            
+            console.log('Task done:', taskText.textContent);
+            return;
+        }
+            
+            
+          
+         if (action === 'edit') {
+            
+
+
+         }this.editTask(taskItem);
         else if (action === 'remove') taskItem.remove();
     }
 
