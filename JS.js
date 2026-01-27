@@ -26,10 +26,10 @@ class TodoList {
 
             if (this.editingIndex === -1) {
                 this.addTask(taskText);
-                console.log(+"user: "+ user +  " TASK ADDED:", taskText);
+                console.log("user: "+ user +  " TASK ADDED:", taskText);
             } else {
                 this.updateTask(taskText);
-                console.log("TASK UPDATED:", taskText);
+                console.log("user: "+ user + " TASK UPDATED:", taskText);
             }
 
             this.todoInput.value = '';
@@ -82,28 +82,29 @@ class TodoList {
             }
 
 
-         if (action === 'edit') {
-
-
-
-         }this.editTask(taskItem);
-         if (action === 'remove') taskItem.remove();
-    }
+         if (e.target.classList.contains('removeButton')) {
+                taskItem.remove();
+                console.log("user: "+ user + " TASK REMOVED:", taskText);
+            }
+     }
 
     updateTask(taskText) {
-        this.todoList.children[this.editingIndex].querySelector('.task-text').textContent = taskText;
+            if (this.editingIndex === -1) return;
+
+            this.todoList.children[this.editingIndex]
+                .querySelector('.task-text').textContent = taskText;
+        }
+
+        editTask(taskItem) {
+            this.todoInput.value = taskItem.querySelector('.task-text').textContent;
+            this.editingIndex = [...this.todoList.children].indexOf(taskItem);
+            this.addButton.textContent = 'Update';
+        }
+
+        resetEditing() {
+            this.editingIndex = -1;
+            this.addButton.textContent = 'Add';
+        }
     }
 
-    editTask(taskItem) {
-        this.todoInput.value = taskItem.querySelector('.task-text').textContent;
-        this.editingIndex = Array.from(this.todoList.children).indexOf(taskItem);
-        this.addButton.textContent = 'Update';
-    }
-
-    resetEditing() {
-        this.editingIndex = -1;
-        this.addButton.textContent = 'Add';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => new TodoList());
+    new TodoList();
