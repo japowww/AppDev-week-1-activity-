@@ -20,7 +20,7 @@ class TodoList {
             this.todoList.addEventListener('click', (e) => this.handleButtonClick(e));
         }
 
-        addOrUpdateTask() {
+addOrUpdateTask() {
             const taskText = this.todoInput.value.trim();
             if (!taskText) return;
 
@@ -34,7 +34,7 @@ class TodoList {
 
             this.todoInput.value = '';
             this.resetEditing();
-        }
+        }        
 
     addTask(taskText) {
             const listItem = document.createElement('li');
@@ -42,7 +42,7 @@ class TodoList {
 
             listItem.innerHTML = `
                 <span class="task-text" style="width:50%;font-size:large;">${taskText}</span>
-                <span class="timestamp" style="display:block;margin-top:.5rem;color:white;font-size:smaller;font-style:italic;">
+                <span class="timestamp" style="display:block;margin-top:.5rem;color:black;font-size:smaller;font-style:italic;">
                     Date Added: ${new Date().toLocaleDateString()} <br>
                     Time: ${new Date().toLocaleTimeString()}
                 </span>
